@@ -1,11 +1,9 @@
 # UK Train Rides
 This project delivers a comprehensive, four-week data analytics solution designed to transform raw UK railway data into strategic business intelligence. By integrating data analytics, statistical analysis, and machine learning, the project provides decision-makers with a 360-degree view of passenger trends and financial performance.
 
-# Railway Dataset — EDA & Data Cleaning
+# step 1: EDA & Data Cleaning using Python
 
-## Project Overview
-
-This project performs **Exploratory Data Analysis (EDA)** and **Data Cleaning** on a UK railway transactions dataset containing **31,653 records** and **18 columns**. The goal is to understand the data structure, fix quality issues, and prepare a clean dataset ready for analysis and reporting.
+Performing **Exploratory Data Analysis (EDA)** and **Data Cleaning** on a UK railway transactions dataset containing **31,653 records** and **18 columns**. The goal is to understand the data structure, fix quality issues, and prepare a clean dataset ready for analysis and reporting.
 
 ---
 
@@ -100,6 +98,87 @@ Rather than blindly filling nulls, a conditional approach was used based on `Jou
 | Jupyter Notebook | Interactive development environment |
 
 
+---
 
-**Hager**
-Aspiring Data Analytics professional developing skills in Python, SQL, Excel, and Power BI.
+# step 2: Dashboard and Insights using Excel
+
+Creating an interactive Excel dashboard built from the cleaned railway dataset, featuring **6 charts**, **4 KPI cards**, and **3 slicers** for dynamic filtering. All visuals are connected and update automatically when a filter is applied.
+
+---
+
+## Dashboard Components
+
+### KPI Cards
+Four summary metrics displayed as standalone cards to provide an immediate snapshot of performance:
+
+| KPI | Value |
+|---|---|
+| **Average Delay Time** | 3.88 mins |
+| **Total Revenue** | £741,921 |
+| **Average Revenue** | £23.44 |
+| **Total Transactions** | 31,653 |
+
+### Charts
+1. **Monthly Journey Trend (Combo Chart)**
+   - **Bar:** Count of Transaction ID per month.
+   - **Line:** Sum of Revenue per month.
+   - **Insight:** Visualizes journey volume vs. revenue from January to April 2024.
+
+2. **Revenue by Ticket Type (Bar Chart)**
+   - Compares total revenue across Advance, Anytime, and Off-Peak tickets.
+   - **Insight:** Advance tickets are the primary revenue driver at £309,274.
+
+3. **Railcard Type by Class (Clustered Bar Chart)**
+   - Breaks down First Class vs. Standard passengers by railcard category.
+   - **Insight:** "No Railcard" passengers dominate with 18,933 Standard class journeys.
+
+4. **Delay Status (Pie Chart)**
+   - Shows the distribution of delay categories as a percentage.
+   - **Insight:** 86.82% of journeys were completed "On Time."
+
+5. **Top 10 Most Delayed Routes (Horizontal Bar Chart)**
+   - Ranks routes by the highest average delay time in minutes.
+   - **Insight:** Manchester Piccadilly to London St Pancras has the highest average delay (22.4 mins).
+
+### Slicers (Interactive Filters)
+Three slicers connected to all pivot charts, allowing for deep-dive analysis:
+
+| Slicer | Options |
+|---|---|
+| **Journey Status** | Cancelled, Delayed, On Time |
+| **Payment Method** | Contactless, Credit Card, Debit Card |
+| **Purchase Type** | Online, Station |
+
+---
+
+## Development Workflow
+
+### 1. Data Preparation
+- Loaded the `railway_clean.csv` into Excel.
+- Added **Calculated Columns** to enhance analysis:
+    - `Route` (Departure + Arrival)
+    - `Month of Journey` & `Day of Week`
+    - `Purchase Lead Days` (Date of Journey - Date of Purchase)
+    - `Is Weekend` (Boolean)
+    - `Delay Time (mins)`
+
+### 2. Pivot Table Construction
+- Built dedicated pivot tables for each visual on a background sheet.
+- Utilized **Field Settings** to switch between `SUM`, `AVERAGE`, and `COUNT` as required for KPIs.
+- Grouped `Date of Journey` by Month to create time-series trends.
+
+### 3. Visual Design & Interactivity
+- Inserted **Pivot Charts** tailored to the data (e.g., Horizontal Bar for rankings, Pie for proportions).
+- Established **Report Connections** for all slicers to ensure the entire dashboard updates in unison.
+- **UI Polishing:** Removed gridlines, applied a consistent color palette, and aligned elements for a professional "Application" feel.
+
+---
+
+## Tools Used
+
+| Tool | Purpose |
+|---|---|
+| **Microsoft Excel** | Data hosting and dashboard engine |
+| **Pivot Tables/Charts** | Data aggregation and visualization |
+| **Slicers** | User-facing interactivity |
+| **Excel Formulas** | Creating calculated fields and KPIs |
