@@ -90,9 +90,9 @@ The `Reason for Delay` column contained duplicate categories with different nami
 
 | Before | After |
 |---|---|
-| `Weather` | `Weather Conditions` |
+| `Weather Conditions` | `Weather ` |
 | `Signal failure` | `Signal Failure` |
-| `Staffing` | `Staff Shortage` |
+| `Staff Shortage` | ` Staffing` |
 
 #### Smart Null Filling with Nested Logic
 Rather than blindly filling nulls, a conditional approach was used based on `Journey Status`:
@@ -140,9 +140,6 @@ Rather than blindly filling nulls, a conditional approach was used based on `Jou
 
 ## Key Findings
 
-- **86.8%** of journeys were on time
-- **7.2%** of journeys were delayed
-- **5.9%** of journeys were cancelled
 - Top delay causes: Weather Conditions, Signal Failure, Staff Shortage
 - No duplicate records found in the dataset
 - After cleaning: **0 missing values** across all 18 columns
@@ -253,23 +250,7 @@ Five structured queries were written in SQL Server to extract key business insig
 ---
 
 ### Data Import
-Before querying, the dataset was imported from Excel into SQL Server and column names were cleaned using `SELECT INTO`:
-
-```sql
-SELECT
-    [Transaction ID]      AS Transaction_ID,
-    [Journey Status]      AS Journey_Status,
-    [Departure Station]   AS Departure_Station,
-    [Arrival Destination] AS Arrival_Destination,
-    [Reason for Delay]    AS Reason_for_Delay,
-    [Refund Request]      AS Refund_Request,
-    [Date of Journey]     AS Date_of_Journey,
-    [Price]               AS Price
-INTO railway
-FROM Data$;
-```
-
----
+The dataset was imported from Excel into SQL Server`:
 
 ### Queries
 
@@ -365,7 +346,6 @@ The data was modelled using Fact and Dimension tables for efficient and scalable
 |---|---|---|
 | `Fact Railway` | Fact | Core transaction table with all measures |
 | `Dim Date` | Dimension | Date attributes — Year, Month, Quarter, Weekday, Is Weekend |
-| `Dim Time` | Dimension | Time attributes — Hour, Period, Peak/Off-Peak |
 | `Dim Journey Status` | Dimension | Journey outcome — On Time, Delayed, Cancelled |
 | `Dim Station` | Dimension | Departure and arrival station details |
 
@@ -379,7 +359,7 @@ Key measures created to power the visuals:
 Total Revenue = SUM('Fact Railway'[Price])
 
 Expenses = 
-SUMX(FILTER('Fact Railway', 'Fact Railway'[Refund_Request] = "Yes"),
+SUMX(FILTER('Fact Railway', 'Fact Railway'[Refund_Eligible] = "Yes"),
 'Fact Railway'[Price])
 
 Net Revenue = [Total Revenue] - [Expenses]
